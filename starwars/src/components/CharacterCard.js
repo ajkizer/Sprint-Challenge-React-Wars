@@ -23,7 +23,6 @@ function CharacterCard() {
   return (
     <div className="card-container">
       {person.map((person, i) => {
-        console.log(person);
         return <Character person={person} key={i} />;
       })}
     </div>
