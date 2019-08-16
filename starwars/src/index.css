@@ -2,6 +2,18 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-image: url('./sw-bg.jpg');
-  background-size: cover;
+  background-image: url("./sw-bg.jpg") !important;
+  background-size: cover !important;
+}
+
+.card-container {
+  margin-top: 5%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.ui {
+  box-sizing: border-box;
+  height: 90px;
 }
