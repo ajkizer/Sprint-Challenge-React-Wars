@@ -2,39 +2,31 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "semantic-ui-css/semantic.min.css";
 import axios from "axios";
-import { Card } from "semantic-ui-react";
+
+import Character from "./Character";
 
 function CharacterCard() {
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
-  const [mass, setMass] = useState("");
-  const [height, setHeight] = useState("");
-  const [birth, setBirth] = useState("");
-
-  axios.get("https://swapi.co/api/people/1/").then(response => {
-    const info = response.data;
-    setName(info.name);
-    setGender(info.gender);
-    setHeight(info.height);
-    setMass(info.mass);
-    setBirth(info["birth_year"]);
-  });
+  const [person, setPerson] = useState([]);
+  const [gender, setGender] = useState([]);
+  const [stats, setStats] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://swapi.co/api/people/")
+      .then(res => {
+        setPerson(res.data.results);
+        setGender(res.data.results);
+        setStats(res.data.results);
+      })
+      .catch(err => console.log(err));
+  }, []);
 
   return (
-    <Card>
-      <Card.Content>
-        <Card.Header>{name}</Card.Header>
-        <Card.Meta>
-          <span className="date">Gender: {gender}</span>
-        </Card.Meta>
-        <Card.Description className="explanation">
-          Mass: {mass}
-        </Card.Description>
-        <Card.Description>Height: {height}</Card.Description>
-        <Card.Description>Birth Year: {birth}</Card.Description>
-      </Card.Content>
-    </Card>
+    <div className="card-container">
+      {person.map((person, i) => {
+        console.log(person);
+        return <Character person={person} key={i} />;
+      })}
+    </div>
   );
 }
-
 export default CharacterCard;
